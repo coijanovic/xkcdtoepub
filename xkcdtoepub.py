@@ -30,9 +30,16 @@ for p in range(1,20):
     cf = wget.download(cpurl, "json")
     cjson = json.loads(open(cf).read())
 
+    title = cjson["safe_title"]
+    alt = cjson["alt"]
+    img = cjson["img"]
+
+    mdentry = (
+            f"# {title}\n\n"
+            f"![{alt}]({img})\n\n"
+            "\\newpage\n\n"
+            )
     # wirte data to markdown file
-    mdfile.write("# " + cjson["safe_title"] + "\n\n")
-    mdfile.write("![" + cjson["alt"] + "](" + cjson["img"] + ")\n\n")
-    mdfile.write("\\newpage\n\n")
+    mdfile.write(mdentry)
 
 mdfile.close()
