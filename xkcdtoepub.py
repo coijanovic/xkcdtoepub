@@ -24,11 +24,22 @@ print("\nCurrent number of posts: ", cpnum)
 # Step 1: build the markdown file
 mdfile = open("allposts.md", "w")
 
-for p in range(1,20):
+metadata = (
+        "---\n"
+        "title: xkcd\n"
+        "subtitle: A webcomic of romance, sarcasm, math, and language.\n"
+        "author: Randall Munroe\n"
+        "---\n"
+        )
+
+mdfile.write(metadata)
+
+print("starting download")
+for p in range(1,50):
     # get data
     cpurl = "https://xkcd.com/" + str(p) + "/info.0.json"
-    print("getting ", cpurl)
     cf = wget.download(cpurl, "json")
+    print(f" - post {p} of {cpnum}")
     cjson = json.loads(open(cf).read())
 
     title = cjson["safe_title"]
