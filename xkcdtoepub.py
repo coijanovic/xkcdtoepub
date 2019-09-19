@@ -22,7 +22,11 @@ cpnum = json.loads(open(tmpf).read())["num"]
 print("\nCurrent number of posts: ", cpnum)
 
 # step 1: find out number of volumes needed
+
+############################
 ppv = 333 # posts per volume
+############################
+
 volumes = (cpnum // ppv) + 1
 
 for v in range(volumes):
