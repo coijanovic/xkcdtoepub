@@ -7,6 +7,7 @@ This script
 
 import json
 import wget
+import subprocess
 
 # Step 0: Find out total number of posts
 cpurl = "https://xkcd.com/info.0.json"
@@ -43,3 +44,7 @@ for p in range(1,20):
     mdfile.write(mdentry)
 
 mdfile.close()
+
+print("calling pandoc")
+r = subprocess.call("pandoc allposts.md -o allposts.epub", shell=True)
+print("finished")
