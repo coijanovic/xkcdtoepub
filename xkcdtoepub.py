@@ -22,20 +22,32 @@ cpnum = json.loads(open(tmpf).read())["num"]
 print("\nCurrent number of posts: ", cpnum)
 
 # Step 1: build the markdown file
-mdfile = open("allposts.md", "w")
+mdfile = open("xkcd.md", "w")
 
 metadata = (
         "---\n"
         "title: xkcd\n"
         "subtitle: A webcomic of romance, sarcasm, math, and language.\n"
         "author: Randall Munroe\n"
+        "cover-image: cover.png\n"
         "---\n"
         )
 
 mdfile.write(metadata)
 
+intro = (
+        "# Introduction\n\n"
+        "xkcd is a webcomic by Randall Munroe, it can be found at [xkcd.com](https://xkcd.com)\n\n"
+        "This book was created by the `xkcdtoepub` script, which can be found at [github](https://github.com/coijanovic/xkcdtoepub)\n\n"
+        "have fun!\n"
+        "\\newpage\n\n"
+        )
+
+mdfile.write(intro)
+
+
 print("starting download")
-for p in range(1,50):
+for p in range(1,cpnum+1):
     # get data
     cpurl = "https://xkcd.com/" + str(p) + "/info.0.json"
     cf = wget.download(cpurl, "json")
@@ -57,5 +69,6 @@ for p in range(1,50):
 mdfile.close()
 
 print("calling pandoc")
-r = subprocess.call("pandoc allposts.md -o allposts.epub", shell=True)
+r = subprocess.call("pandoc xkcd.md -o xkcd.epub", shell=True)
+
 print("finished")
