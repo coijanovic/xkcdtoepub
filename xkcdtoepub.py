@@ -12,7 +12,7 @@ import wget
 # Step 0: Find out total number of posts
 CP_URL = "https://xkcd.com/info.0.json"
 try:
-    TMPF = wget.download(CP_URL, "json")
+    TMPF = wget.download(CP_URL)
 except Exception as ex:
     print(f"post could not be downloaded: {ex}\n")
     exit()
@@ -63,7 +63,7 @@ for v in range(VOLUMES):
         # get data
         CP_URL = "https://xkcd.com/" + str(v*PPV + p) + "/info.0.json"
         try:
-            cf = wget.download(CP_URL, "json")
+            cf = wget.download(CP_URL)
         except Exception as ex:
             print(f"post {v*PPV + p} could not be downloaded: {ex}\n")
             notfound += 1
