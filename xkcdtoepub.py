@@ -1,8 +1,9 @@
 '''
 This script
 1. downloads **all** posts from xkcd.com
-2. compiles them into a markdown document
-3. converts that document to epub
+2. compiles them into a markdown documents
+3. converts these document to epub
+Change PPV to set number of posts per volume
 '''
 
 import subprocess
@@ -60,6 +61,8 @@ for v in range(VOLUMES):
     print("starting download")
     notfound = 0
     for p in range(1, PPV+1):
+        if v*PPV+p > CP_NUM:
+            break
         # get data
         CP_URL = "https://xkcd.com/" + str(v*PPV + p) + "/info.0.json"
         try:
@@ -89,4 +92,5 @@ for v in range(VOLUMES):
     print("calling pandoc")
     r = subprocess.call(f"pandoc xkcd_v{v}.md -o xkcd_v{v}.epub", shell=True)
 
+T = subprocess.call("rm *.md *.json", shell=True)
 print("finished")
